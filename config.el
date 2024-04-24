@@ -93,19 +93,25 @@
           (defun shr-fill-line () nil)))
 ;; C-jではなくs-jをskk-kakuteiにわりあてる
 ;;
-(with-eval-after-load 'skk
-  (define-key minibuffer-local-map (kbd "s-j") 'skk-kakutei)
-  (define-key minibuffer-mode-map (kbd "s-j") 'skk-kakutei)
-  (define-key skk-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
-  (define-key skk-latin-mode-map (kbd "s-j") 'skk-kakutei)
-  (define-key skk-j-mode-map (kbd "s-j") 'skk-kakutei)
-  (with-eval-after-load 'skk-tut
-    (define-key skktut-abbrev-mode-map (kbd "s-j") 'skk-kakutei)
-    (define-key skktut-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
-    (define-key skktut-latin-mode-map (kbd "s-j") 'skk-kakutei)
-  )
-)
-(setq skk-tut-file "/home/takayoshi-s/.emacs.d/.local/straight/repos/ddskk/etc/SKK.tut")
+;; (with-eval-after-load 'skk
+;;   (define-key minibuffer-local-map (kbd "s-j") 'skk-kakutei)
+;;   (define-key minibuffer-mode-map (kbd "s-j") 'skk-kakutei)
+;;   (define-key skk-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
+;;   (define-key skk-latin-mode-map (kbd "s-j") 'skk-kakutei)
+;;   (define-key skk-j-mode-map (kbd "s-j") 'skk-kakutei)
+;;   (with-eval-after-load 'skk-tut
+;;     (define-key skktut-abbrev-mode-map (kbd "s-j") 'skk-kakutei)
+;;     (define-key skktut-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
+;;     (define-key skktut-latin-mode-map (kbd "s-j") 'skk-kakutei)
+;;   )
+;; )
+;; (setq skk-tut-file "/home/takayoshi-s/.emacs.d/.local/straight/repos/ddskk/etc/SKK.tut")
+
+;; For docker-tramp.el
+;; Use remote-container-path in tramp
+(after! docker-tramp
+        (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
