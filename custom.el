@@ -6,7 +6,8 @@
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(package-selected-packages '(go-translate))
  '(safe-local-variable-values
-   '((projectile-project-run-cmd . "/nix/var/nix/profiles/default/bin/nix run nixpkgs#home-manager -- switch --flake .#tas")
+   '((projectile-project-run-cmd . "nix run nixpkgs#home-manager -- switch --flake .#tas --impure")
+     (projectile-project-run-cmd . "/nix/var/nix/profiles/default/bin/nix run nixpkgs#home-manager -- switch --flake .#tas")
      (projectile-project-run-cmd . "nix run nixpkgs#home-manager -- switch --flake .#tas"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
