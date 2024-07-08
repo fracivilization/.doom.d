@@ -71,19 +71,6 @@
 (define-key global-map (kbd "s-i") 'org-capture-inbox)
 (setq org-roam-directory (concat org-directory "roam"))
 
-;; go-translate
-(require 'go-translate)
-
-(setq gts-translate-list '(("en" "ja")))
-
-;; (setq gts-default-translator (gts-translator :engines (gts-bing-engine)))
-
-(setq gts-default-translator
-      (gts-translator
-       :picker (gts-prompt-picker)
-       :engines (list (gts-bing-engine) (gts-google-engine))
-       :render (gts-buffer-render)))
-
 ;; toggle-truncate-lines for eww
 ;; 
 (eval-after-load 'shr
