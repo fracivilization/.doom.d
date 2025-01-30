@@ -54,7 +54,4 @@
 ;; (add-to-list 'load-path "/home/takayoshi-s/.emacs.d/.local/elpa/go-translate-20230503.303/")
 (package! go-translate)
 
-;; For docker-tramp.el https://github.com/emacs-pe/docker-tramp.el
-(package! docker-tramp)
-
 ;; (package! use-package)

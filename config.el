@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;; (setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 16))
+(setq doom-font (font-spec :family "Fira Code" :size 24 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 25))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -42,29 +42,17 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/.org/")
 (after! org
-  (add-to-list 'org-capture-templates
-    `("i" "inbox" entry
-     (file ,(concat org-directory "inbox.org"))
-     "* %?\n %i\n"))
-  ;; Add org-roam files into org-agenda
-  ;; ref: https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
-  (defun my/org-roam-filter-by-tag (tag-name)
-    (lambda (node)
-      (member tag-name (org-roam-node-tags node))))
-
-  (defun my/org-roam-list-notes-by-tag (tag-name)
-    (mapcar #'org-roam-node-file
-            (seq-filter
-             (my/org-roam-filter-by-tag tag-name)
-             (org-roam-node-list))))
-
-  (defun my/org-roam-refresh-agenda-list ()
-    (interactive)
-    (setq org-agenda-files (delete-dups (my/org-roam-list-notes-by-tag "Project"))))
-
-  ;; Build the agenda list the first time for the session
-  (my/org-roam-refresh-agenda-list)
+  (setq org-capture-templates
+    `(
+       ("t" "todo" entry (file ,(concat org-directory "roam/20241122220055-todo.org")) "* TODO %?\n %i\n")
+      )
   )
+  (setq org-agenda-files
+        `(
+          ,(concat org-directory "roam/20241122220055-todo.org")
+        )
+  )
+)
 (defun org-capture-inbox ()
     (interactive)
     (org-capture nil "i"))
@@ -80,25 +68,19 @@
           (defun shr-fill-line () nil)))
 ;; C-jではなくs-jをskk-kakuteiにわりあてる
 ;;
-;; (with-eval-after-load 'skk
-;;   (define-key minibuffer-local-map (kbd "s-j") 'skk-kakutei)
-;;   (define-key minibuffer-mode-map (kbd "s-j") 'skk-kakutei)
-;;   (define-key skk-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
-;;   (define-key skk-latin-mode-map (kbd "s-j") 'skk-kakutei)
-;;   (define-key skk-j-mode-map (kbd "s-j") 'skk-kakutei)
-;;   (with-eval-after-load 'skk-tut
-;;     (define-key skktut-abbrev-mode-map (kbd "s-j") 'skk-kakutei)
-;;     (define-key skktut-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
-;;     (define-key skktut-latin-mode-map (kbd "s-j") 'skk-kakutei)
-;;   )
-;; )
-;; (setq skk-tut-file "/home/takayoshi-s/.emacs.d/.local/straight/repos/ddskk/etc/SKK.tut")
-
-;; For docker-tramp.el
-;; Use remote-container-path in tramp
-(after! docker-tramp
-        (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
-
+(with-eval-after-load 'skk
+  (define-key minibuffer-local-map (kbd "s-j") 'skk-kakutei)
+  (define-key minibuffer-mode-map (kbd "s-j") 'skk-kakutei)
+  (define-key skk-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
+  (define-key skk-latin-mode-map (kbd "s-j") 'skk-kakutei)
+  (define-key skk-j-mode-map (kbd "s-j") 'skk-kakutei)
+  (with-eval-after-load 'skk-tut
+    (define-key skktut-abbrev-mode-map (kbd "s-j") 'skk-kakutei)
+    (define-key skktut-jisx0208-latin-mode-map (kbd "s-j") 'skk-kakutei)
+    (define-key skktut-latin-mode-map (kbd "s-j") 'skk-kakutei)
+  )
+)
+(setq skk-tut-file "/home/takayoshi-s/.emacs.d/.local/straight/repos/ddskk/etc/SKK.tut")
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
